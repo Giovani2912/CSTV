@@ -8,6 +8,7 @@ import './styles/main.css';
 import logoImg from './assets/image-9.svg';
 import { CreateAdModal } from "./components/CreateAdModal";
 import axios from "axios";
+import { MatchBanner } from "./components/MatchBanner";
 
 
 interface Game {
@@ -19,12 +20,35 @@ interface Game {
   }
 }
 
+interface Match {
+  id?: string;
+  timeA?: string;
+  timeB?: string;
+  placarTimeA?: string;
+  placarTimeB?: string;
+  imgTimeA?: string;
+  imgTimeB?: string;
+  data?: string;
+  _count?: {
+    News?: number
+  }
+
+}
+
 function App() {
   const [games, setGames] = useState<Game[]>([]);
+  const [matches, setMatches] = useState<Match[]>([]);
+
 
   useEffect(() => {
     axios('http://localhost:3030/games').then(response => {
       setGames(response.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    axios('http://localhost:3030/matches').then(response => {
+      setMatches(response.data);
     });
   }, []);
 
@@ -33,10 +57,9 @@ function App() {
       <img src={logoImg} alt="" width={400}/>
 
       <h1 className="text-6xl text-white font-black mt-20">
-        Seu <span className="text-transparent bg-nlw-gradient bg-clip-text">duo</span> está aqui.
+        Suas <span className="text-transparent bg-nlw-gradient bg-clip-text">atualizações</span> estão aqui.
       </h1>
-
-      <div className="grid grid-cols-6 gap-6 mt-16">
+      {/* <div className="grid grid-cols-6 gap-6 mt-16">
         {games.map(game => {
           return (
             <GameBanner
@@ -47,8 +70,25 @@ function App() {
             />
           )
         })}
+      </div> */}
+      <div className="grid grid-cols-3 gap-6 mt-16">
+        {matches.map(match => {
+          return (
+            <MatchBanner
+              key={match.id}
+              timeA={match.timeA}
+              imgTimeA={match.imgTimeA}
+              placarTimeA={match.placarTimeA}              
+              timeB={match.timeB}
+              imgTimeB={match.imgTimeB}
+              placarTimeB={match.placarTimeB}
+              newsCount={match._count?.News}
+              data={match.data}
+              id={""}
+            />
+          )
+        })}
       </div>
-
       <Dialog.Root>
         <CreateAdBanner />
 
