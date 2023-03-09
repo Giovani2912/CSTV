@@ -21,7 +21,7 @@ export function MatchBanner(props: MatchBannerProps) {
             alt=""
             className="w-24 h-24 rounded-full mx-auto"
           />
-          <strong className="font-bold text-white block">
+          <strong className="font-bold text-white block mb-8">
             {props.placarTimeA}
           </strong>
         </div>
@@ -33,7 +33,7 @@ export function MatchBanner(props: MatchBannerProps) {
             alt=""
             className="w-24 h-24 rounded-full mx-auto"
           />
-          <strong className="font-bold text-white block">
+          <strong className="font-bold text-white block mb-8">
             {props.placarTimeB}
           </strong>
         </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios";
 import { NewBanner } from '../components/NewBanner';
+import { useParams } from 'react-router-dom';
 
 interface New{
   matchId?: string;
@@ -9,12 +10,17 @@ interface New{
   descricao?: string
 }
 
-export const News = (props: New) => {
+type NewsParams = {
+  id: string;
+}
 
+export const News = (props: New) => {
+  const params = useParams<NewsParams>();
   const [news, setNews] = useState<New[]>([]);
+  const matchId = params.id;
 
   useEffect(()=> {
-    axios(`http://localhost:3030/matches/${props.matchId}/news`).then((response) => {
+    axios(`http://localhost:3030/matches/${matchId}/news`).then((response) => {
       setNews(response.data);
     });
   }, [])
