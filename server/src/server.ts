@@ -131,8 +131,6 @@ app.post('/matches', async (request, response) => {
   return response.status(201).json(match);
 });
 
-
-
 app.get('/matches/:id/news', async (request, response) => {
   const matchId = request.params.id;
 
@@ -144,7 +142,6 @@ app.get('/matches/:id/news', async (request, response) => {
 
   return response.json(news)
 });
-
 
 app.post('/matches/:id/news', async (request, response) => {
   
@@ -163,6 +160,22 @@ app.post('/matches/:id/news', async (request, response) => {
   return response.status(201).json(body);
 });
 
+
+// app.post('/users', async (request, response) => {
+  
+//   const body: any = request.body;
+
+//   const user = await prisma.user.create({
+//       data: {
+//           name: body.name,
+//           email: body.email,
+//           username: body.username,
+//           password: body.password,
+//       }
+//   });
+
+//   return response.status(201).json(user);
+// });
 
 
 app.listen(3030, ()=>{

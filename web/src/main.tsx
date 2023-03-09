@@ -5,21 +5,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./Screens/Login";
 import Register from "./Screens/Register";
 import Games from './Screens/Games';
-
-// const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <Games />
-//   },
-//   {
-//     path: "/login",
-//     element: <Login />
-//   },
-//   {
-//     path: "/register",
-//     element: <Register />
-//   },
-// ])
+import Matches from './Screens/Matches';
+import News from './Screens/News';
+import Home from './Screens/Home';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +16,10 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
+        element: <Home />
+      },
+      {
+        path: "/games",
         element: <Games />
       },
       {
@@ -37,6 +29,14 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />
+      },
+      {
+        path: "/matches",
+        element: <Matches />
+      },
+      {
+        path: "/matches/:id/news",
+        element: <News />
       },
     ]
   },

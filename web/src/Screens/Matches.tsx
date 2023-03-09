@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { MatchBanner } from "../components/MatchBanner";
 
 interface Match {
@@ -27,10 +28,17 @@ export const Matches = () => {
 
   return (
     <>
-      <h1 className="text-6xl text-white font-black mt-20">Partidas</h1>
+    <h1 className="text-6xl text-white font-black mt-2 py-16">
+        Suas{" "}
+        <span className="text-transparent bg-nlw-gradient bg-clip-text">
+          atualizações
+        </span>{" "}
+        estão aqui.
+      </h1>
       <div className="grid grid-cols-3 gap-6 mt-16">
         {matches.map((match) => {
           return (
+            <Link to={`/matches/${match.id}/news`} >
             <MatchBanner
               key={match.id}
               timeA={match.timeA}
@@ -43,6 +51,7 @@ export const Matches = () => {
               data={match.data}
               id={""}
             />
+            </Link>
           );
         })}
       </div>

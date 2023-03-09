@@ -12,7 +12,7 @@ interface MatchBannerProps {
 
 export function MatchBanner(props: MatchBannerProps) {
   return (
-    <a href="/teste" className="relative rounded-lg overflow-hidden ">
+    <div className="relative rounded-lg overflow-hidden ">
       <div className="w-480 h-60 bg-zinc-400 rounded-xl  dark:bg-slate-800 flex items-center  hover:bg-violet-600  ">
         <div className=" flex items-center flex-col p-8">
           <strong className="font-bold text-white block">{props.timeA}</strong>
@@ -45,6 +45,6 @@ export function MatchBanner(props: MatchBannerProps) {
         </span>
         <span className="text-zinc-300 text-sm block">{props.data}</span>
       </div>
-    </a>
+    </div>
   );
 }

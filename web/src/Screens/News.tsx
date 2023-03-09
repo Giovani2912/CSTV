@@ -3,17 +3,18 @@ import axios from "axios";
 import { NewBanner } from '../components/NewBanner';
 
 interface New{
+  matchId?: string;
   id?: string;
   titulo?: string;
   descricao?: string
 }
 
-export const News = () => {
+export const News = (props: New) => {
 
   const [news, setNews] = useState<New[]>([]);
 
   useEffect(()=> {
-    axios("http://localhost:3030/matches/a5c0de90-34f4-45a9-9a36-15eef96b70e4/news").then((response) => {
+    axios(`http://localhost:3030/matches/${props.matchId}/news`).then((response) => {
       setNews(response.data);
     });
   }, [])
@@ -28,7 +29,7 @@ export const News = () => {
               key={item.id}
               titulo={item.titulo}
               descricao={item.descricao}
-              id={""}
+              id={item.id}
             />
           );
         })}
