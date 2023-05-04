@@ -161,21 +161,28 @@ app.post('/matches/:id/news', async (request, response) => {
 });
 
 
-// app.post('/users', async (request, response) => {
+app.get('/users', async (request, response) => {
+    
+  const users = await prisma.user.findMany();
   
-//   const body: any = request.body;
+  return response.json(users)
+});
 
-//   const user = await prisma.user.create({
-//       data: {
-//           name: body.name,
-//           email: body.email,
-//           username: body.username,
-//           password: body.password,
-//       }
-//   });
 
-//   return response.status(201).json(user);
-// });
+app.post('/users', async (request, response) => {
+  
+  const body: any = request.body;
+
+  const user = await prisma.user.create({
+      data: {
+          email: body.email,
+          username: body.username,
+          password: body.password,
+      }
+  });
+
+  return response.status(201).json(user);
+});
 
 
 app.listen(3030, ()=>{

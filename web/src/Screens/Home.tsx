@@ -7,7 +7,7 @@ export const Home = () => {
     <>
     <Navbar />
     <div className="grid grid-cols-1 gap-6 mt-16">
-      <Carousel />
+      {/* <Carousel /> */}
     </div>
     </>
     )
