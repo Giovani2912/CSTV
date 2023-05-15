@@ -184,6 +184,50 @@ app.post('/users', async (request, response) => {
   return response.status(201).json(user);
 });
 
+// app.post('/session/:id', async (request, response) => {
+
+//   const userId = request.params.id;
+
+//   const body: any = request.body;
+
+//   const session = await prisma.user.findUnique({
+//     where: {
+//       id: body.id
+//     },
+//    select: {
+//      email: true,
+//      password: true
+//   }
+//   })
+
+// })
+
+
+app.post('/players', async (request, response) => {
+  
+  const body: any = request.body;
+
+  const player = await prisma.player.create({
+      data: {
+          username: body.username,
+          team: body.team,
+          imgTeam: body.imgTeam,
+          age: body.age,
+          kills: body.kills,
+          country: body.country,
+          imgCountry: body. imgCountry
+      }
+  });
+
+app.get('/players', async (request, response) => {
+    
+  const players = await prisma.player.findMany();
+  
+  return response.json(players)
+});
+
+  return response.status(201).json(player);
+});
 
 app.listen(3030, ()=>{
   console.log("Server is running!")

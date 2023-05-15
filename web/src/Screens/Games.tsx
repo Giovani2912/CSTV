@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { CreateAdBanner } from "../components/CreateAdBanner";
 import { CreateAdModal } from "../components/CreateAdModal";
+import { Link } from "react-router-dom";
 
 interface Game {
   id: string;
@@ -25,25 +26,18 @@ export const Games = () => {
   }, []);
   return (
     <>
-      <h1 className="text-6xl text-white font-black mt-2">Jogos futuros</h1>
+      <h1 className="text-6xl text-white font-black mt-20">Jogos disponíveis na plataforma</h1>
 
-      <div className="grid grid-cols-6 gap-6 mt-16">
-        {games.map((game) => {
-          return (
-            <GameBanner
-              key={game.id}
-              title={game.title}
-              bannerUrl={game.bannerUrl}
-              adsCount={game._count.ads}
-            />
-          );
-        })}
-      </div>
-      <Dialog.Root>
-        <CreateAdBanner />
-
-        <CreateAdModal />
-      </Dialog.Root>
+      <Link to="/preview">
+        <div className="grid grid-cols-1 gap-6 mt-16">
+          <GameBanner
+            key="id"
+            title="Counter Strike CS:GO"
+            bannerUrl="https://static-cdn.jtvnw.net/ttv-boxart/32399_IGDB-188x250.jpg"
+            adsCount={2}
+          />
+        </div>
+      </Link>
     </>
   );
 };

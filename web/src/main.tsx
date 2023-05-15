@@ -8,6 +8,9 @@ import Games from './Screens/Games';
 import Matches from './Screens/Matches';
 import News from './Screens/News';
 import Home from './Screens/Home';
+import About from './Screens/About';
+import Preview from './Screens/Preview';
+import Players from './Screens/Players';
 
 const router = createBrowserRouter([
   {
@@ -31,12 +34,24 @@ const router = createBrowserRouter([
         element: <Register />
       },
       {
+        path: "/about",
+        element: <About />
+      },
+      {
+        path: "/preview",
+        element: <Preview />
+      },
+      {
         path: "/matches",
         element: <Matches />
       },
       {
         path: "/matches/:id/news",
         element: <News />
+      },
+      {
+        path: "/players",
+        element: <Players />
       },
     ]
   },
