@@ -27,14 +27,12 @@ export const Games = () => {
   return (
     <>
       <h1 className="text-6xl text-white font-black mt-20">Jogos disponíveis na plataforma</h1>
-
       <Link to="/preview">
         <div className="grid grid-cols-1 gap-6 mt-16">
           <GameBanner
             key="id"
             title="Counter Strike CS:GO"
             bannerUrl="https://static-cdn.jtvnw.net/ttv-boxart/32399_IGDB-188x250.jpg"
-            adsCount={2}
           />
         </div>
       </Link>

@@ -1,7 +1,7 @@
 interface GameBannerProps {
   bannerUrl?: string;
   title: string;
-  adsCount: number;
+  adsCount?: number;
 }
 
 export function GameBanner(props: GameBannerProps) {
@@ -10,7 +10,7 @@ export function GameBanner(props: GameBannerProps) {
       <img src="https://wallpapers.com/images/featured/xb9ovth229qs5qud.jpg" alt="" />
       <div className="w-full pt-16 pb-4 px-4 bg-game-gradient absolute bottom-0 left-0 right-0">
         <strong className="font-bold text-white block">{props.title}</strong>
-        <span className="text-zinc-300 text-sm block">{props.adsCount} campeonato(s)</span>
+        {/* <span className="text-zinc-300 text-sm block">{props.adsCount} campeonato(s)</span> */}
       </div>
     </a>
   );

@@ -12,6 +12,8 @@ interface PlayerProps {
   country?: string;
   imgCountry?: string;
   age?: number
+  imgPlayer?: string;
+
 }
 
 export const Players = () => {
@@ -35,9 +37,9 @@ export const Players = () => {
       <div className="grid grid-cols-2 gap-6 mt-16">
         {players.map((player) => {
           return (
-            <div className="relative rounded-lg overflow-hidden ">
-              <div className="w-480 h-60 bg-zinc-400 rounded-xl  dark:bg-slate-800 flex items-center  hover:bg-violet-600  ">
-                <div className=" flex items-center flex-col p-8 space-y-5">
+          <figure className="bg-zinc-600 rounded-xl p-8 dark:bg-slate-800">
+            <img className="w-48 h-24 rounded-md mx-auto" src={player.imgPlayer} alt="" width="384" height="512" />
+            <div className=" flex items-center flex-col p-8 space-y-5">
                   <strong className="font-bold text-white block">
                     Nome do jogador: {player.username}
                   </strong>
@@ -68,8 +70,7 @@ export const Players = () => {
                     Média de kills por partida: {player.kills}
                 </strong>
                 </div>
-              </div>
-            </div>
+          </figure>
           );
         })}
       </div>

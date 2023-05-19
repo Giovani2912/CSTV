@@ -53,8 +53,8 @@ model News {
 
 model User {
   id        String @id @default(uuid())
-  username  String
-  email     String
+  username  String @unique
+  email     String @unique
   password  String
 }
 
@@ -67,4 +67,5 @@ model Player {
   country    String
   imgCountry String
   age        Int
+  imgPlayer  String
 }

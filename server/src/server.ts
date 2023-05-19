@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import { PrismaClient } from '@prisma/client';
 import { convertHourStringToMinutes } from "./utils/convert-hour-string-to-minutes";
 import { convertMinutesToHourString } from "./utils/convert-minutes-to-hour-string";
@@ -173,33 +174,50 @@ app.post('/users', async (request, response) => {
   
   const body: any = request.body;
 
+  const userExists = await prisma.user.findFirst({
+    where: {email: request.body.email}
+   });
+
+  if (userExists) {
+    response.json({email: 'E-mail já existe'})
+  }
+
+  const hashPassword = await bcrypt.hash(body.password, 10)
+
   const user = await prisma.user.create({
       data: {
           email: body.email,
           username: body.username,
-          password: body.password,
+          password: hashPassword,
       }
   });
 
   return response.status(201).json(user);
 });
 
-// app.post('/session/:id', async (request, response) => {
 
-//   const userId = request.params.id;
+// app.post('/login', async (request, response) => {
+//   const {email, password} = request.body
+  
+//   const user = await prisma.user.findFirst({
+//     where: {email}
+//    });
 
-//   const body: any = request.body;
-
-//   const session = await prisma.user.findUnique({
-//     where: {
-//       id: body.id
-//     },
-//    select: {
-//      email: true,
-//      password: true
+//   if(!user) {
+//     response.send("E-mail inválido")
 //   }
-//   })
 
+//   const verifyPass = await bcrypt.compare(password, request.body.password)
+//   // if (!verifyPass) {
+//   //   response.send('Senha inválidos')
+//   // }
+
+//   const token = jwt.sign({id: user?.id}, process.env.JWT_PASS ?? '', {expiresIn: '8h'})
+
+//   return response.json({
+//     user,
+//     token: token,
+//   })
 // })
 
 
@@ -215,7 +233,9 @@ app.post('/players', async (request, response) => {
           age: body.age,
           kills: body.kills,
           country: body.country,
-          imgCountry: body. imgCountry
+          imgCountry: body.imgCountry,
+          imgPlayer: body.imgPlayer
+          
       }
   });
 

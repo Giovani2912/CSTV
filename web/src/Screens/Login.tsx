@@ -1,46 +1,27 @@
-import React, { FormEvent, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+import React, { FormEvent, useContext , useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 import { Input } from "../components/Form/Input";
 import Header from '../components/Header';
 import axios from 'axios';
+import AuthContext from '../context/AuthProvider';
 
 export const Login = () => {
+  const { setAuth } : any = useContext(AuthContext);
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const navigate = useNavigate();
 
-  // const handleSubmit = () => {
-  //   if(email === "gi@gmail.com" && password === "1234"){
-  //     setIsLogged(true)
-  //     alert("Tudo certo")
-  //   } else {
-  //     alert("Usuário não encontrado")
-  //   }
-  // }
-
-  
-  useEffect(() => {
-    axios('http://localhost:3030/users').then(response => {
-     
-    });
-  }, []);
-
-  async function handleSignUser(event: FormEvent) {
+  async function handleLogin(event: FormEvent) {
     event.preventDefault()
-
-    const formData = new FormData(event.target as HTMLFormElement);
-    const data = Object.fromEntries(formData);
-
     try {
-      const response = await axios.get(`http://localhost:3030/users`, {
-        params: {
-          email: data.email,
-          password: data.password
-        }
-      });
-      alert(response)
+      const response = await axios.post(`http://localhost:3030/login`,{ email, password });
+      const accessToken = response.data.token;
+      setAuth({email, password, accessToken});
+      alert(accessToken)
+      navigate('/games')
     } catch (err) {
-      console.log(err);
-      alert('Erro ao logar usuário!');
+      alert('Falha no login, tente novamente')
+      console.log(err)
     }
   }
 
@@ -48,10 +29,10 @@ export const Login = () => {
     <div className="grid grid-cols-1 gap-6 mt-20">
       <Header />
       <h1 className="text-6xl text-white font-black mt-2">Login Page</h1>
-      <form onSubmit={handleSignUser} className="mt-8 flex flex-col gap-4">
-        <Input name="email" id="email" type="email" placeholder='Seu melhor Email' />
-        <Input name="password" id="password" type="password" placeholder='Senha' />
-        <button className="bg-violet-500 hover:bg-violet-600 text-white font-bold py-2 px-4 rounded mt-8" >
+      <form onSubmit={handleLogin} className="mt-8 flex flex-col gap-4">
+        <Input name="email" id="email" type="email" placeholder='Seu melhor Email' onChange={(e) => setEmail(e.target.value)} />
+        <Input name="password" id="password" type="password" placeholder='Senha' onChange={(e) => setPassword(e.target.value)}  />
+        <button type='submit' className="bg-violet-500 hover:bg-violet-600 text-white font-bold py-2 px-4 rounded mt-8" >
           {/* <Link to="/games" > */}
             Entrar
           {/* </Link>   */}
