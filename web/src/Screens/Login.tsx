@@ -4,26 +4,40 @@ import { Input } from "../components/Form/Input";
 import Header from '../components/Header';
 import axios from 'axios';
 import AuthContext from '../context/AuthProvider';
+import useAuth from '../hooks/useAuth';
+
 
 export const Login = () => {
-  const { setAuth } : any = useContext(AuthContext);
+  // const { setAuth } : any = useContext(AuthContext);
+  const { setAuth } : any = useAuth();
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+
   const navigate = useNavigate();
 
   async function handleLogin(event: FormEvent) {
     event.preventDefault()
     try {
-      const response = await axios.post(`http://localhost:3030/login`,{ email, password });
+      const response = await axios.post(`http://localhost:3030/login`, { email, password });
+
       const accessToken = response.data.token;
+      
       setAuth({email, password, accessToken});
       alert(accessToken)
+
+      console.log("Email: " + email, password + "JWT: " + accessToken)
+      
+      if(accessToken){
       navigate('/games')
+      } else {
+        alert("Erro")
+      }
     } catch (err) {
       alert('Falha no login, tente novamente')
       console.log(err)
     }
   }
+
 
   return (
     <div className="grid grid-cols-1 gap-6 mt-20">

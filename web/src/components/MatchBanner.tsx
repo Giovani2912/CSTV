@@ -43,7 +43,7 @@ export function MatchBanner(props: MatchBannerProps) {
         <span className="text-zinc-300 text-sm block">
           {props.newsCount} notícia(s)
         </span>
-        <span className="text-zinc-300 text-sm block">{props.data}</span>
+        {/* <span className="text-zinc-300 text-sm block">{props.data}</span> */}
       </div>
     </div>
   );

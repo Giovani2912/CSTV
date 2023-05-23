@@ -196,29 +196,29 @@ app.post('/users', async (request, response) => {
 });
 
 
-// app.post('/login', async (request, response) => {
-//   const {email, password} = request.body
+app.post('/login', async (request, response) => {
+  const {email, password} = request.body
   
-//   const user = await prisma.user.findFirst({
-//     where: {email}
-//    });
+  const user = await prisma.user.findUnique({
+    where: {email}
+   });
 
-//   if(!user) {
-//     response.send("E-mail inválido")
-//   }
+  if(!user) {
+    response.send("E-mail inválido")
+  }
 
-//   const verifyPass = await bcrypt.compare(password, request.body.password)
-//   // if (!verifyPass) {
-//   //   response.send('Senha inválidos')
-//   // }
+  const verifyPass = await bcrypt.compare(password, request.body.password)
+  // if (!verifyPass) {
+  //   response.send('Senha inválidos')
+  // }
 
-//   const token = jwt.sign({id: user?.id}, process.env.JWT_PASS ?? '', {expiresIn: '8h'})
+  const token = jwt.sign({id: user?.id}, process.env.JWT_PASS ?? '', {expiresIn: '8h'})
 
-//   return response.json({
-//     user,
-//     token: token,
-//   })
-// })
+  return response.json({
+    user,
+    token: token,
+  })
+})
 
 
 app.post('/players', async (request, response) => {
